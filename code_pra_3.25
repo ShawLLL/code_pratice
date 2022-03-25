@@ -1,0 +1,36 @@
+//我的初步解决方案
+#include <vector>
+bool betterThanAverage(std::vector<int> classPoints, int yourPoints) {
+  // your code here
+  int length = classPoints.size();
+  int len = length+1;
+  int sum = yourPoints;
+  for(int i = 0; i<length ; i++)
+    {
+    sum += classPoints[i];
+  }
+  int ave = yourPoints*len;
+  if (ave >= sum)
+    return true;
+  else 
+    return false;
+}
+
+//参考他人的利用迭代器将所有结果进行统计方法
+//1.
+#include <vector>
+bool betterThanAverage(std::vector<int> arr, int p) {
+  int sum =0;
+  for(auto i:arr)//c++11遍历写法！！！
+    sum+=i;
+  int avg = sum/arr.size();
+  return p > avg ? true:false;
+}
+
+//2.
+#include <vector>
+#include <numeric>
+bool betterThanAverage(const std::vector<int>& classPoints, const int yourPoints) {
+  return std::accumulate(classPoints.cbegin(), classPoints.cend(), 0) < classPoints.size() * yourPoints;
+}
+
