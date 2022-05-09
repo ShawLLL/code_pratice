@@ -1,0 +1,79 @@
+//1.将所有出现过的字符从小到大打印，多次出现也只打印一次
+#include <iostream>
+using namespace std;
+int main() {
+    int N, n;
+    cin >> N;
+    int a[501] = { 0 };
+    while (N--) {
+        cin >> n;
+        a[n] = 1;
+    }
+    for (int i = 0; i < 501; i++)
+        if (a[i])
+            cout << i << endl;
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+//1.题目：输入两行数据，第二行一个字符，在第一行中查找第二行字符出现的次数，不分大小写
+
+//M1:暴力循环
+#include <iostream>
+#include <string>
+using namespace std;
+int main()
+{
+    string str,a;
+    while(cin>>str)
+        a+=str;
+    int num = 0;
+    int len = a.size();
+    for(int i = 0;i<len-1;i++)
+    {
+        if((a[len-1]>='A')&&(a[len-1]<='z'))
+        {
+            if((a[i]==a[len-1])||(a[i]==(a[len-1]+32))||((a[i]+32)==a[len-1])) num++;
+        }else if(a[i]==a[len-1]) num++;
+    }
+    cout<<num;
+}
+
+//M2：通过tolower（a[i]） 函数将字符转化全部为小写
+//虽然减少if语句，但是时间效率下降
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string str, a;
+    while (cin >> str)
+        a += str;
+    int num = 0;
+    int len = a.size();
+    char b = tolower(a[len-1]);
+    for (int i = 0; i < len - 1; i++) {
+      if(tolower(a[i])==b)num++;
+    }
+    cout << num;
+}
+
+//M3:使用键值对的方式 ，时间效率提升，减少if判断！！！重要
+#include <iostream>
+#include <string>
+#include <unordered_map>
+
+using namespace std;
+
+int main(int, char **)
+{
+    string s;
+    char c;
+    getline(cin, s) >> c;
+
+    unordered_map<char, size_t> unorderedMap;
+    for (auto i : s) //使用迭代器
+    {
+        ++unorderedMap[tolower(i)];
+    }
+    cout << unorderedMap[tolower(c)] << endl;
+}
